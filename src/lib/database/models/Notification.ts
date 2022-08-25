@@ -22,8 +22,8 @@ export class Notification implements INotification {
 		this.notification_id = data.notification_id;
 		this.title = data.title;
 		this.body = data.body;
-		this.read_at = data.read_at;
-		this.created_at = data.created_at;
-		this.updated_at = data.updated_at;
+		this.read_at = data.read_at ? new Date(data.read_at) : data.read_at;
+		this.created_at = new Date(data.created_at);
+		this.updated_at = new Date(data.updated_at);
 	}
 }

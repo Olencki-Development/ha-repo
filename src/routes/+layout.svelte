@@ -9,12 +9,12 @@
 	 * Reactive vars
 	 */
 	$: if ($page.url.pathname === toHome()) {
+		$backAction = null;
+	} else {
 		$backAction = {
 			title: 'Back',
 			to: toHome()
 		};
-	} else {
-		$backAction = null;
 	}
 
 	/**
