@@ -9,19 +9,29 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"knex:run": "knex --knexfile src/knex/knexfile.ts --esm",
+		"knex:migrate": "npm run knex:run -- migrate:latest",
+		"knex:migrate:create": "npm run knex:run -- migrate:make --",
+		"knex:migrate:rollback": "npm run knex:run -- migrate:rollback --all",
+		"knex:seed": "npm run knex:run -- seed:run",
+		"knex:seed:create": "npm run knex:run -- seed:make --"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
+		"@types/pg": "^8.6.5",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
 		"autoprefixer": "^10.4.8",
+		"dotenv": "^16.0.1",
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"husky": "^8.0.1",
+		"knex": "^2.2.0",
 		"lint-staged": "^13.0.3",
+		"pg": "^8.8.0",
 		"postcss": "^8.4.16",
 		"prettier": "^2.6.2",
 		"prettier-plugin-svelte": "^2.7.0",
@@ -32,7 +42,8 @@
 		"tailwindcss": "^3.1.8",
 		"tslib": "^2.3.1",
 		"typescript": "^4.7.4",
-		"vite": "^3.0.4"
+		"vite": "^3.0.4",
+		"zod": "^3.18.0"
 	},
 	"type": "module",
 	"lint-staged": {
