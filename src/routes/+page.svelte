@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from '.svelte-kit/types/src/routes/$types';
 	import { TrashCanSolid } from 'svelte-awesome-icons';
+	import Action from './Action.svelte';
 
 	export let data: PageData;
 	const { notifications } = data;
@@ -10,14 +11,14 @@
 	<div class="flex flex-col w-1/3">
 		{#each $notifications as notification (notification.notification_id)}
 			<div
-				class={`px-6 py-4 ${
+				class={`${
 					notification.read_at ? 'bg-slate-200 dark:bg-slate-800' : 'bg-slate-100 dark:bg-slate-700'
-				} rounded-md flex flex-wrap gap-3`}
+				} rounded-md`}
 			>
-				<div class="w-full flex justify-between">
+				<div class="p-6 flex justify-between border-b-2 border-b-neutral-400/25">
 					<div>
 						<p class="text-2xl">{notification.title}</p>
-						<p class="text-neutral-400 whitespace-pre-line w-full text-xs">
+						<p class="text-neutral-400 whitespace-pre-line text-xs">
 							{notification.created_at.toDateString()} @ {notification.created_at.toLocaleTimeString(
 								'en-US'
 							)}
@@ -31,10 +32,24 @@
 						</button>
 					</div>
 				</div>
-				<p class="text-neutral-600 dark:text-neutral-300 whitespace-pre-line w-full">
-					{notification.body}
-				</p>
-				<div class="grid justify-end items-center w-full" />
+				<div
+					class={`p-6 ${notification.actions.length ? 'border-b-2 border-b-neutral-400/25' : ''}`}
+				>
+					<p class="text-neutral-600 dark:text-neutral-300 whitespace-pre-line">
+						{notification.body}
+					</p>
+				</div>
+				{#if notification.actions.length}
+					<div
+						class={`grid grid-cols-${
+							notification.actions.length >= 3 ? 3 : notification.actions.length
+						} rounded-b-md overflow-hidden`}
+					>
+						{#each notification.actions as action (action.notification_action_id)}
+							<Action {action} {notification} />
+						{/each}
+					</div>
+				{/if}
 			</div>
 		{/each}
 	</div>
