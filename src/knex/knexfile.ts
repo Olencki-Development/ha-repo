@@ -2,6 +2,8 @@
 import path from 'path';
 
 export const NOTIFICATION_TABLE = 'notifications';
+export const NOTIFICATION_ACTION_TABLE = 'notification_action';
+export const ACTION_TYPE_TABLE = 'action_type';
 
 export async function fetchConnection() {
 	let env;
