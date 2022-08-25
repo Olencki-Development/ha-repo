@@ -7,9 +7,10 @@ export async function up(knex) {
       notification_id serial primary key,
       title varchar not null,
       body varchar null,
+      data jsonb not null default '{}'::jsonb,
       read_at timestamp(6) with time zone null,
-      created_at timestamp(6) with time zone null default now(),
-      updated_at timestamp(6) with time zone null default now()
+      created_at timestamp(6) with time zone not null default now(),
+      updated_at timestamp(6) with time zone not null default now()
     );
   `);
 }
