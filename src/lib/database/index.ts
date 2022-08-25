@@ -1,8 +1,8 @@
 import { knex as knexFunc } from 'knex';
-import fetchConfig, { NOTIFICATION_TABLE } from '../../knex/knexfile';
+import fetchConfig, { NOTIFICATION_TABLE, NOTIFICATION_ACTION_TABLE } from '../../knex/knexfile';
 import * as pg from 'pg';
 
-export { NOTIFICATION_TABLE };
+export { NOTIFICATION_TABLE, NOTIFICATION_ACTION_TABLE };
 
 pg.types.setTypeParser(pg.types.builtins.INT2, parseInt);
 pg.types.setTypeParser(pg.types.builtins.INT4, parseInt);

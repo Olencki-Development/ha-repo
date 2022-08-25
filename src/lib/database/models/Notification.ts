@@ -1,32 +1,11 @@
 import { z } from 'zod';
+import { baseSchema, stringOrDateAsDate } from './base';
 
-export const notificationSchema = z.object({
+export const notificationSchema = baseSchema.extend({
 	notification_id: z.number(),
-	title: z.string().min(1).nullable(),
-	body: z.string().min(1),
-	read_at: z.date().nullable(),
-	data: z.record(z.any()),
-	created_at: z.date(),
-	updated_at: z.date()
+	title: z.string().min(1),
+	body: z.string().min(1).nullable(),
+	read_at: stringOrDateAsDate.nullable(),
+	data: z.record(z.any())
 });
 export type INotification = z.infer<typeof notificationSchema>;
-
-export class Notification implements INotification {
-	readonly notification_id: INotification['notification_id'];
-	readonly title: INotification['title'];
-	readonly body: INotification['body'];
-	readonly data: INotification['data'];
-	readonly read_at: INotification['read_at'];
-	readonly created_at: INotification['created_at'];
-	readonly updated_at: INotification['updated_at'];
-
-	constructor(data: INotification) {
-		this.notification_id = data.notification_id;
-		this.title = data.title;
-		this.body = data.body;
-		this.data = data.data;
-		this.read_at = data.read_at ? new Date(data.read_at) : data.read_at;
-		this.created_at = new Date(data.created_at);
-		this.updated_at = new Date(data.updated_at);
-	}
-}
