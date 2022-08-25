@@ -11,7 +11,8 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: {
-			$database: './src/database'
+			$navigate: './src/routes/navigate',
+			$stores: './src/stores'
 		}
 	}
 };
