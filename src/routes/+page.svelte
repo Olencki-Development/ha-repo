@@ -73,6 +73,8 @@
 					</div>
 				{/if}
 			</div>
+		{:else}
+			<p class="text-center">You're all caught up.</p>
 		{/each}
 	</div>
 </div>

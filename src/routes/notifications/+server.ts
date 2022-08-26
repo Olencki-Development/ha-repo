@@ -4,6 +4,45 @@ import type { RequestHandler } from './$types';
 import { ZodError } from 'zod';
 import { error } from '@sveltejs/kit';
 import { getErrorMessage } from '$lib/app/error';
+import type { Notification } from '$lib/database/models/Notification';
+import type { NotificationAction } from '$lib/database/models/NotificationAction';
+
+export const GET: RequestHandler = async function () {
+	const notifications = await knex
+		.table<Notification>(NOTIFICATION_TABLE)
+		.orderBy('created_at', 'desc');
+
+	const actions = await knex.table<NotificationAction>(NOTIFICATION_ACTION_TABLE).whereIn(
+		'notification_id',
+		notifications.map((n) => n.notification_id)
+	);
+
+	const actionMap: Record<
+		NotificationAction['notification_id'],
+		NotificationWithActions['actions']
+	> = {};
+	for (const action of actions) {
+		if (!actionMap[action.notification_id]) {
+			actionMap[action.notification_id] = [];
+		}
+		actionMap[action.notification_id].push(
+			NotificationWithActions.shape.actions.element.parse(action)
+		);
+	}
+
+	const response: NotificationWithActions[] = [];
+	for (const notification of notifications) {
+		response.push(
+			NotificationWithActions.parse({
+				...notification,
+				actions: actionMap[notification.notification_id] ?? []
+			})
+		);
+	}
+
+	// Dates are not json serializable this helps mitigate the issue
+	return new Response(JSON.stringify(response));
+};
 
 export const POST: RequestHandler = async function ({ request }) {
 	const json = await request.json();
