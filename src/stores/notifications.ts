@@ -1,11 +1,8 @@
-import type { INotification } from '$lib/database/models/Notification';
-import type { INotificationAction } from '$lib/database/models/NotificationAction';
+import type { INotificationWithActions } from '$lib/app/models/NotificationWithActions';
 import { writable } from 'svelte/store';
 
-export type Notifications = (INotification & { actions: INotificationAction[] })[];
-
 function getNotificationStore() {
-	const store = writable<Notifications>([]);
+	const store = writable<INotificationWithActions[]>([]);
 
 	return store;
 }

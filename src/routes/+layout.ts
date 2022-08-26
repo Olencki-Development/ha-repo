@@ -1,5 +1,6 @@
 import type { LayoutLoad } from './$types';
-import { notifications, type Notifications } from '$stores/notifications';
+import { notifications } from '$stores/notifications';
+import type { INotificationWithActions } from '$lib/app/models/NotificationWithActions';
 import {
 	notificationActionSchema,
 	type INotificationAction
@@ -15,7 +16,7 @@ export const load: LayoutLoad = function ({ data }) {
 		actionMap[action.notification_id].push(notificationActionSchema.parse(action));
 	}
 
-	const notifs: Notifications = [];
+	const notifs: INotificationWithActions[] = [];
 	for (const notification of data.notifications) {
 		notifs.push({
 			...notificationSchema.parse(notification),
