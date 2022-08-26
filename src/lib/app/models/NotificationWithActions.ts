@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { Notification } from '../../database/models/Notification';
-import { ActionType, NotificationAction } from '../../database/models/NotificationAction';
+import { NotificationAction } from '../../database/models/NotificationAction';
 
 export const NotificationWithActions = Notification.extend({
 	notification_id: Notification.shape.notification_id.optional(),

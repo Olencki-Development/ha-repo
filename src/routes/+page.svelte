@@ -68,7 +68,7 @@
 				{#if notification.actions.length}
 					<div class="grid grid-flow-col rounded-b-md overflow-hidden">
 						{#each notification.actions as action (action.notification_action_id)}
-							<Action {action} {notification} />
+							<Action {action} />
 						{/each}
 					</div>
 				{/if}

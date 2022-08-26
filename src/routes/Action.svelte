@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { ActionType, type NotificationAction } from '$lib/database/models/NotificationAction';
+	import { ActionType } from '$lib/database/models/NotificationAction';
 	import type { NotificationWithActions } from '$lib/app/models/NotificationWithActions';
 
-	export let notification: NotificationWithActions;
-	export let action: NotificationAction;
+	export let action: NotificationWithActions['actions'][number];
 
 	/**
 	 * Event handlers
