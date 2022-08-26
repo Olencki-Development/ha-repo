@@ -1,10 +1,18 @@
 <script lang="ts">
+	import type { NotificationWithActions } from '$lib/app/models/NotificationWithActions';
 	import type { PageData } from '.svelte-kit/types/src/routes/$types';
 	import { TrashCanSolid } from 'svelte-awesome-icons';
 	import Action from './Action.svelte';
 
 	export let data: PageData;
 	const { notifications } = data;
+
+	/**
+	 * Event handlers
+	 */
+	async function handleMarkAsRead(notification: NotificationWithActions) {
+		return data.notifications.markAsRead(notification);
+	}
 </script>
 
 <div class="w-full flex justify-center">
@@ -19,18 +27,22 @@
 					<div>
 						<p class="text-2xl">{notification.title}</p>
 						<p class="text-neutral-400 whitespace-pre-line text-xs">
-							{notification.created_at.toDateString()} @ {notification.created_at.toLocaleTimeString(
+							{notification.created_at?.toDateString()} @ {notification.created_at?.toLocaleTimeString(
 								'en-US'
 							)}
 						</p>
 					</div>
-					<div class="flex justify-center items-center">
-						<button
-							class="px-2 py-1.5 font-semibold text-sm bg-red-500/50 hover:bg-red-600/50 text-white rounded-md shadow-sm opacity-100 flex items-center"
-						>
-							<TrashCanSolid size="16" />
-						</button>
-					</div>
+					{#if notification.read_at === null}
+						<div class="flex justify-center items-center">
+							<button
+								on:click={() => handleMarkAsRead(notification)}
+								type="submit"
+								class="px-2 py-1.5 font-semibold text-sm bg-red-500/50 hover:bg-red-600/50 text-white rounded-md shadow-sm opacity-100 flex items-center"
+							>
+								<TrashCanSolid size="16" />
+							</button>
+						</div>
+					{/if}
 				</div>
 				{#if notification.body}
 					<div class="p-6">
