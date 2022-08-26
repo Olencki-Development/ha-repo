@@ -3,9 +3,23 @@
 	import type { PageData } from '.svelte-kit/types/src/routes/$types';
 	import { TrashCanSolid } from 'svelte-awesome-icons';
 	import Action from './Action.svelte';
+	import { NotificationFilter, notificationFilter } from '$stores/ui';
 
 	export let data: PageData;
 	const { notifications } = data;
+
+	/**
+	 * Reactive vars
+	 */
+	$: filteredNotifications = $notifications.filter((n) => {
+		if ($notificationFilter === NotificationFilter.READ) {
+			return !!n.read_at;
+		}
+		if ($notificationFilter === NotificationFilter.UNREAD) {
+			return !n.read_at;
+		}
+		return true;
+	});
 
 	/**
 	 * Event handlers
@@ -17,7 +31,7 @@
 
 <div class="w-full flex justify-center">
 	<div class="flex flex-col w-1/3 gap-6">
-		{#each $notifications as notification (notification.notification_id)}
+		{#each filteredNotifications as notification (notification.notification_id)}
 			<div
 				class={`tile ${
 					notification.read_at ? 'bg-slate-200 dark:bg-slate-800' : 'bg-slate-100 dark:bg-slate-700'
