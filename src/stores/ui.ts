@@ -20,3 +20,11 @@ type BackAction = {
 };
 
 export const backAction = writable<BackAction | null>(null);
+
+export enum NotificationFilter {
+	ALL = 'All',
+	READ = 'Read',
+	UNREAD = 'Unread'
+}
+
+export const notificationFilter = writable<NotificationFilter>(NotificationFilter.UNREAD);
