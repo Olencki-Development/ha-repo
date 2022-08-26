@@ -10,8 +10,11 @@ export async function seed(knex) {
 	const notifications = await knex(NOTIFICATION_TABLE)
 		.insert([
 			{
-				title: 'App initialized!',
-				body: `Home Assistant portal is a way to receive interactive notification in a persistent way.
+				title: 'App Initialized.'
+			},
+			{
+				title: 'Welcome to HA-Portal',
+				body: `HA-Portal is a way to receive interactive notification in a persistent way.
 			
 The goals are to:
 * Receive notifications and display them in an intuitive UI
@@ -22,7 +25,7 @@ The goals are to:
 		.returning('*');
 	await knex(NOTIFICATION_ACTION_TABLE).insert([
 		{
-			notification_id: notifications[0].notification_id,
+			notification_id: notifications[1].notification_id,
 			title: "What's Home Assistant?",
 			action_type_id: 'open_url',
 			properties: {

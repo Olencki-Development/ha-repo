@@ -7,15 +7,19 @@
 	const { notifications } = data;
 </script>
 
-<div class="w-full h-screen flex justify-center">
-	<div class="flex flex-col w-1/3">
+<div class="w-full flex justify-center">
+	<div class="flex flex-col w-1/3 gap-6 overflow-scroll">
 		{#each $notifications as notification (notification.notification_id)}
 			<div
 				class={`${
 					notification.read_at ? 'bg-slate-200 dark:bg-slate-800' : 'bg-slate-100 dark:bg-slate-700'
 				} rounded-md`}
 			>
-				<div class="p-6 flex justify-between border-b-2 border-b-neutral-400/25">
+				<div
+					class={`p-6 flex justify-between ${
+						notification.body ? 'border-b-2 border-b-neutral-400/25' : ''
+					}`}
+				>
 					<div>
 						<p class="text-2xl">{notification.title}</p>
 						<p class="text-neutral-400 whitespace-pre-line text-xs">
@@ -32,13 +36,15 @@
 						</button>
 					</div>
 				</div>
-				<div
-					class={`p-6 ${notification.actions.length ? 'border-b-2 border-b-neutral-400/25' : ''}`}
-				>
-					<p class="text-neutral-600 dark:text-neutral-300 whitespace-pre-line">
-						{notification.body}
-					</p>
-				</div>
+				{#if notification.body}
+					<div
+						class={`p-6 ${notification.actions.length ? 'border-b-2 border-b-neutral-400/25' : ''}`}
+					>
+						<p class="text-neutral-600 dark:text-neutral-300 whitespace-pre-line">
+							{notification.body}
+						</p>
+					</div>
+				{/if}
 				{#if notification.actions.length}
 					<div
 						class={`grid grid-cols-${

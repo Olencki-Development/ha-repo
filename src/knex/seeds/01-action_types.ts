@@ -1,8 +1,9 @@
 // @ts-nocheck
-import { ACTION_TYPE_TABLE } from '../knexfile.ts';
+import { ACTION_TYPE_TABLE, NOTIFICATION_ACTION_TABLE } from '../knexfile.ts';
 
 export async function seed(knex) {
 	// Deletes ALL existing entries
+	await knex(NOTIFICATION_ACTION_TABLE).del();
 	await knex(ACTION_TYPE_TABLE).del();
 
 	// Inserts seed entries
