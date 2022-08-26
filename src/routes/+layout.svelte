@@ -30,9 +30,9 @@
 </svelte:head>
 
 <div class:dark={$darkMode}>
-	<div class="w-full h-screen bg-slate-300 dark:bg-slate-900 dark:text-white">
+	<div class="w-full min-h-screen bg-slate-300 dark:bg-slate-900 dark:text-white">
 		<div
-			class="w-full flex py-4 px-6"
+			class="w-full fixed flex py-4 px-6"
 			class:justify-end={!$backAction}
 			class:justify-between={$backAction}
 		>
@@ -56,7 +56,7 @@
 				{$darkMode ? 'Dark' : 'Light'}
 			</button>
 		</div>
-		<div class="px-6 py-4">
+		<div class="px-6 pt-20 py-4 h-100">
 			<slot />
 		</div>
 	</div>

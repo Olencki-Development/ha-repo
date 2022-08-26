@@ -8,18 +8,14 @@
 </script>
 
 <div class="w-full flex justify-center">
-	<div class="flex flex-col w-1/3 gap-6 overflow-scroll">
+	<div class="flex flex-col w-1/3 gap-6">
 		{#each $notifications as notification (notification.notification_id)}
 			<div
-				class={`${
+				class={`tile ${
 					notification.read_at ? 'bg-slate-200 dark:bg-slate-800' : 'bg-slate-100 dark:bg-slate-700'
 				} rounded-md`}
 			>
-				<div
-					class={`p-6 flex justify-between ${
-						notification.body ? 'border-b-2 border-b-neutral-400/25' : ''
-					}`}
-				>
+				<div class="p-6 flex justify-between">
 					<div>
 						<p class="text-2xl">{notification.title}</p>
 						<p class="text-neutral-400 whitespace-pre-line text-xs">
@@ -37,20 +33,14 @@
 					</div>
 				</div>
 				{#if notification.body}
-					<div
-						class={`p-6 ${notification.actions.length ? 'border-b-2 border-b-neutral-400/25' : ''}`}
-					>
+					<div class="p-6">
 						<p class="text-neutral-600 dark:text-neutral-300 whitespace-pre-line">
 							{notification.body}
 						</p>
 					</div>
 				{/if}
 				{#if notification.actions.length}
-					<div
-						class={`grid grid-cols-${
-							notification.actions.length >= 3 ? 3 : notification.actions.length
-						} rounded-b-md overflow-hidden`}
-					>
+					<div class="grid grid-flow-col rounded-b-md overflow-hidden">
 						{#each notification.actions as action (action.notification_action_id)}
 							<Action {action} {notification} />
 						{/each}
@@ -60,3 +50,11 @@
 		{/each}
 	</div>
 </div>
+
+<style lang="scss">
+	.tile {
+		> :not(:last-child) {
+			@apply border-b-2 border-b-neutral-400/25;
+		}
+	}
+</style>
