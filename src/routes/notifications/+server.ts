@@ -1,10 +1,7 @@
-import { notificationWithActionsSchema } from '$lib/app/models/NotificationWithActions';
+import { NotificationWithActions } from '$lib/app/models/NotificationWithActions';
 import knex, { NOTIFICATION_ACTION_TABLE, NOTIFICATION_TABLE } from '$lib/database';
-import { type INotification, notificationSchema } from '$lib/database/models/Notification';
-import {
-	type INotificationAction,
-	notificationActionSchema
-} from '$lib/database/models/NotificationAction';
+import { Notification } from '$lib/database/models/Notification';
+import { NotificationAction } from '$lib/database/models/NotificationAction';
 import type { RequestHandler } from './$types';
 import { z, ZodError } from 'zod';
 import { error, json } from '@sveltejs/kit';
@@ -15,7 +12,7 @@ export const POST: RequestHandler = async function ({ request }) {
 
 	let notificationWithActions;
 	try {
-		notificationWithActions = notificationWithActionsSchema.parse(json);
+		notificationWithActions = NotificationWithActions.parse(json);
 	} catch (e) {
 		if (e instanceof ZodError) {
 			throw error(
@@ -32,18 +29,18 @@ export const POST: RequestHandler = async function ({ request }) {
 	const transaction = await knex.transaction();
 	try {
 		const notificationResults = await knex
-			.table<INotification>(NOTIFICATION_TABLE)
+			.table<Notification>(NOTIFICATION_TABLE)
 			.transacting(transaction)
-			.insert(notificationSchema.parse(notificationWithActions))
+			.insert(Notification.parse(notificationWithActions))
 			.returning('*');
 
-		let actionResults: INotificationAction[] = [];
+		let actionResults: NotificationAction[] = [];
 		if (notificationWithActions.actions.length) {
 			actionResults = await knex
-				.table<INotificationAction>(NOTIFICATION_ACTION_TABLE)
+				.table<NotificationAction>(NOTIFICATION_ACTION_TABLE)
 				.transacting(transaction)
 				.insert(
-					z.array(notificationActionSchema).parse(
+					z.array(NotificationAction).parse(
 						notificationWithActions.actions.map((action) => {
 							return {
 								...action,
@@ -57,7 +54,7 @@ export const POST: RequestHandler = async function ({ request }) {
 
 		await transaction.commit();
 
-		const response = notificationWithActionsSchema.parse({
+		const response = NotificationWithActions.parse({
 			...notificationResults[0],
 			actions: actionResults
 		});

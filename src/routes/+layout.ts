@@ -1,10 +1,10 @@
 import type { LayoutLoad } from './$types';
 import { notifications } from '$stores/notifications';
-import { notificationWithActionsSchema } from '$lib/app/models/NotificationWithActions';
+import { NotificationWithActions } from '$lib/app/models/NotificationWithActions';
 import { z } from 'zod';
 
 export const load: LayoutLoad = function ({ data }) {
-	notifications.set(z.array(notificationWithActionsSchema).parse(data.notifications));
+	notifications.set(z.array(NotificationWithActions).parse(data.notifications));
 
 	return {
 		notifications
