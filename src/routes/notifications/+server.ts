@@ -1,19 +1,18 @@
 import { NotificationWithActions } from '$lib/app/models/NotificationWithActions';
 import knex, { NOTIFICATION_ACTION_TABLE, NOTIFICATION_TABLE } from '$lib/database';
-import { Notification } from '$lib/database/models/Notification';
-import { NotificationAction } from '$lib/database/models/NotificationAction';
 import type { RequestHandler } from './$types';
-import { z, ZodError } from 'zod';
-import { error, json } from '@sveltejs/kit';
+import { ZodError } from 'zod';
+import { error } from '@sveltejs/kit';
 import { getErrorMessage } from '$lib/app/error';
 
 export const POST: RequestHandler = async function ({ request }) {
 	const json = await request.json();
 
-	let notificationWithActions;
+	let notificationWithActions: NotificationWithActions;
 	try {
 		notificationWithActions = NotificationWithActions.parse(json);
 	} catch (e) {
+		console.error(e);
 		if (e instanceof ZodError) {
 			throw error(
 				400,
@@ -31,7 +30,11 @@ export const POST: RequestHandler = async function ({ request }) {
 		const notificationResults = await knex
 			.table<Notification>(NOTIFICATION_TABLE)
 			.transacting(transaction)
-			.insert(Notification.parse(notificationWithActions))
+			.insert({
+				title: notificationWithActions.title,
+				body: notificationWithActions.body ?? undefined,
+				data: notificationWithActions.data
+			})
 			.returning('*');
 
 		let actionResults: NotificationAction[] = [];
@@ -40,14 +43,12 @@ export const POST: RequestHandler = async function ({ request }) {
 				.table<NotificationAction>(NOTIFICATION_ACTION_TABLE)
 				.transacting(transaction)
 				.insert(
-					z.array(NotificationAction).parse(
-						notificationWithActions.actions.map((action) => {
-							return {
-								...action,
-								notification_id: notificationResults[0].notification_id
-							};
-						})
-					)
+					notificationWithActions.actions.map((action) => {
+						return {
+							...action,
+							notification_id: notificationResults[0].notification_id
+						};
+					})
 				)
 				.returning('*');
 		}
@@ -59,8 +60,9 @@ export const POST: RequestHandler = async function ({ request }) {
 			actions: actionResults
 		});
 
-		return json(response);
+		return new Response(JSON.stringify(response));
 	} catch (e) {
+		console.error(e);
 		await transaction.rollback();
 
 		throw error(500, getErrorMessage('Unexpected server error.'));
