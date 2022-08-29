@@ -42,6 +42,7 @@ You can preview the production build with `npm run preview`.
 This project exposes an [endpoint](https://www.home-assistant.io/integrations/notify.rest/) to receive RESTful notiication requests from home assistant.
 
 To set up the integration use the example config:
+
 ```yaml
 # Example configuration.yaml entry
 notify:
@@ -53,3 +54,5 @@ notify:
     username: USERNAME # same as your env file
     password: PASSWORD # same as your env file
 ```
+
+There is an addon to install to get the server running locally. Copy the contents of the folder into the addon directory and refresh the addons to install. See the support article [Tutorial: Making your first add-on](https://developers.home-assistant.io/docs/add-ons/tutorial/) for more details.
