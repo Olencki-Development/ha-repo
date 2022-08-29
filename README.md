@@ -36,3 +36,20 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Home Assistant
+
+This project exposes an [endpoint](https://www.home-assistant.io/integrations/notify.rest/) to receive RESTful notiication requests from home assistant.
+
+To set up the integration use the example config:
+```yaml
+# Example configuration.yaml entry
+notify:
+  - name: ha_portal
+    platform: rest
+    resource: http://IP_ADDRESS/notifications/ha
+    method: POST_JSON
+    authentication: basic
+    username: USERNAME # same as your env file
+    password: PASSWORD # same as your env file
+```

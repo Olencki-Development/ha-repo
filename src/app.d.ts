@@ -9,6 +9,7 @@ declare namespace App {
 		DB_PASSWORD: string;
 		DB_DATABASE: string;
 		DB_HOST: string;
+		BASIC_AUTH: string;
 	}
 	// interface PublicEnv {}
 }
