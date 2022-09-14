@@ -1,10 +1,10 @@
-import { knex as knexFunc } from 'knex';
+import knexFunc from 'knex';
 import fetchConfig, {
 	SCHEMA,
 	NOTIFICATION_TABLE,
 	NOTIFICATION_ACTION_TABLE
 } from '../../knex/knexfile';
-import * as pg from 'pg';
+import pg from 'pg';
 
 export { SCHEMA, NOTIFICATION_TABLE, NOTIFICATION_ACTION_TABLE };
 

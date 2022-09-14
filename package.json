@@ -18,7 +18,7 @@
 		"knex:seed:create": "npm run knex:run -- seed:make --"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/adapter-node": "next",
 		"@sveltejs/kit": "next",
 		"@types/pg": "^8.6.5",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
