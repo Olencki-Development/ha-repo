@@ -1,6 +1,7 @@
 // @ts-nocheck
 import path from 'path';
 
+export const SCHEMA = 'ha_portal';
 export const NOTIFICATION_TABLE = 'notifications';
 export const NOTIFICATION_ACTION_TABLE = 'notification_action';
 export const ACTION_TYPE_TABLE = 'action_type';
@@ -31,7 +32,8 @@ export default async function fetchConfig() {
 		migrations: {
 			extension: 'ts',
 			directory: 'migrations',
-			tableName: 'migrations_history'
+			tableName: `migrations_history`,
+			schemaName: SCHEMA
 		},
 		seeds: {
 			extension: 'ts',

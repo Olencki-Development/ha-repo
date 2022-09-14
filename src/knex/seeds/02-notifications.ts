@@ -1,13 +1,15 @@
 // @ts-nocheck
-import { NOTIFICATION_TABLE, NOTIFICATION_ACTION_TABLE } from '../knexfile.ts';
+import { NOTIFICATION_TABLE, NOTIFICATION_ACTION_TABLE, SCHEMA } from '../knexfile.ts';
 
 export async function seed(knex) {
 	// Deletes ALL existing entries
-	await knex(NOTIFICATION_ACTION_TABLE).del();
-	await knex(NOTIFICATION_TABLE).del();
+	await knex.withSchema(SCHEMA).table(NOTIFICATION_ACTION_TABLE).del();
+	await knex.withSchema(SCHEMA).table(NOTIFICATION_TABLE).del();
 
 	// Inserts seed entries
-	const notifications = await knex(NOTIFICATION_TABLE)
+	const notifications = await knex
+		.withSchema(SCHEMA)
+		.table(NOTIFICATION_TABLE)
 		.insert([
 			{
 				title: 'App Initialized.'
@@ -23,14 +25,17 @@ The goals are to:
 			}
 		])
 		.returning('*');
-	await knex(NOTIFICATION_ACTION_TABLE).insert([
-		{
-			notification_id: notifications[1].notification_id,
-			title: "What's Home Assistant?",
-			action_type_id: 'open_url',
-			properties: {
-				url: 'https://www.home-assistant.io/'
+	await knex
+		.withSchema(SCHEMA)
+		.table(NOTIFICATION_ACTION_TABLE)
+		.insert([
+			{
+				notification_id: notifications[1].notification_id,
+				title: "What's Home Assistant?",
+				action_type_id: 'open_url',
+				properties: {
+					url: 'https://www.home-assistant.io/'
+				}
 			}
-		}
-	]);
+		]);
 }

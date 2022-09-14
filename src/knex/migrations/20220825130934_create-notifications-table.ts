@@ -1,9 +1,9 @@
 // @ts-nocheck
-import { NOTIFICATION_TABLE } from '../knexfile.ts';
+import { NOTIFICATION_TABLE, SCHEMA } from '../knexfile.ts';
 
 export async function up(knex) {
-	await knex.raw(`
-    CREATE TABLE ${NOTIFICATION_TABLE} (
+	await knex.withSchema(SCHEMA).raw(`
+    CREATE TABLE ${SCHEMA}.${NOTIFICATION_TABLE} (
       notification_id serial primary key,
       title varchar not null,
       body varchar null,
@@ -16,7 +16,7 @@ export async function up(knex) {
 }
 
 export async function down(knex) {
-	await knex.raw(`
-    DROP TABLE ${NOTIFICATION_TABLE};
+	await knex.withSchema(SCHEMA).raw(`
+    DROP TABLE ${SCHEMA}.${NOTIFICATION_TABLE};
   `);
 }
