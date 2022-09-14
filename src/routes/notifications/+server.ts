@@ -1,5 +1,5 @@
 import { NotificationWithActions } from '$lib/app/models/NotificationWithActions';
-import knex, { NOTIFICATION_ACTION_TABLE, NOTIFICATION_TABLE } from '$lib/database';
+import knex, { NOTIFICATION_ACTION_TABLE, NOTIFICATION_TABLE, SCHEMA } from '$lib/database';
 import type { RequestHandler } from './$types';
 import { ZodError } from 'zod';
 import { error } from '@sveltejs/kit';
@@ -9,13 +9,17 @@ import type { NotificationAction } from '$lib/database/models/NotificationAction
 
 export const GET: RequestHandler = async function () {
 	const notifications = await knex
+		.withSchema(SCHEMA)
 		.table<Notification>(NOTIFICATION_TABLE)
 		.orderBy('created_at', 'desc');
 
-	const actions = await knex.table<NotificationAction>(NOTIFICATION_ACTION_TABLE).whereIn(
-		'notification_id',
-		notifications.map((n) => n.notification_id)
-	);
+	const actions = await knex
+		.withSchema(SCHEMA)
+		.table<NotificationAction>(NOTIFICATION_ACTION_TABLE)
+		.whereIn(
+			'notification_id',
+			notifications.map((n) => n.notification_id)
+		);
 
 	const actionMap: Record<
 		NotificationAction['notification_id'],
@@ -67,6 +71,7 @@ export const POST: RequestHandler = async function ({ request }) {
 	const transaction = await knex.transaction();
 	try {
 		const notificationResults = await knex
+			.withSchema(SCHEMA)
 			.table<Notification>(NOTIFICATION_TABLE)
 			.transacting(transaction)
 			.insert({
@@ -79,6 +84,7 @@ export const POST: RequestHandler = async function ({ request }) {
 		let actionResults: NotificationAction[] = [];
 		if (notificationWithActions.actions.length) {
 			actionResults = await knex
+				.withSchema(SCHEMA)
 				.table<NotificationAction>(NOTIFICATION_ACTION_TABLE)
 				.transacting(transaction)
 				.insert(

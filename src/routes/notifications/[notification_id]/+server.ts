@@ -1,6 +1,6 @@
 import { getErrorMessage } from '$lib/app/error';
 import { NotificationWithActions } from '$lib/app/models/NotificationWithActions';
-import { NOTIFICATION_ACTION_TABLE, NOTIFICATION_TABLE } from '$lib/database';
+import { NOTIFICATION_ACTION_TABLE, NOTIFICATION_TABLE, SCHEMA } from '$lib/database';
 import type { Notification } from '$lib/database/models/Notification';
 import { error } from '@sveltejs/kit';
 import knex from '$lib/database';
@@ -34,6 +34,7 @@ export const PATCH: RequestHandler = async function ({ request, params }) {
 	}
 
 	const notificationResults = await knex
+		.withSchema(SCHEMA)
 		.table<Notification>(NOTIFICATION_TABLE)
 		.update({
 			read_at: payload.read_at
@@ -42,6 +43,7 @@ export const PATCH: RequestHandler = async function ({ request, params }) {
 		.returning('*');
 
 	const actionResults = await knex
+		.withSchema(SCHEMA)
 		.table<NotificationWithActions>(NOTIFICATION_ACTION_TABLE)
 		.where('notification_id', '=', params.notification_id);
 
