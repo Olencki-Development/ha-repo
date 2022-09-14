@@ -1,0 +1,29 @@
+name: 'HA Portal'
+description: "HA-Portal is a way to receive interactive notification in a persistent way.\nThe goals are to:\n* Receive notifications and display them in an intuitive UI\n* Interact with notifications allowing powerful connectivity\n* Provide a log history of the notifications that have been received and what actions are selected"
+version: '1.0.0'
+slug: 'ha_portal'
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: before
+ports:
+  5173/tcp: 5173
+options:
+  basic_auth_username: ""
+  basic_auth_password: ""
+  db_username: "homeassistant"
+  db_password: ""
+  db_database: "ha"
+  db_host: "127.0.0.1"
+schema:
+  basic_auth_username: str
+  basic_auth_password: str
+  db_username: str
+  db_password: str
+  db_database: str
+  db_host: str
+  

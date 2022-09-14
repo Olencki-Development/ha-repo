@@ -51,8 +51,8 @@ notify:
     resource: http://IP_ADDRESS/notifications/ha
     method: POST_JSON
     authentication: basic
-    username: USERNAME # same as your env file
-    password: PASSWORD # same as your env file
+    username: USERNAME # same as your config
+    password: PASSWORD # same as your config
 ```
 
 There is an addon to install to get the server running locally. Copy the contents of the folder into the addon directory and refresh the addons to install. See the support article [Tutorial: Making your first add-on](https://developers.home-assistant.io/docs/add-ons/tutorial/) for more details.
