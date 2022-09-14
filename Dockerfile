@@ -2,7 +2,7 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 # Install requirements for add-on
-RUN add --update nodejs nodejs-npm
+RUN apn add --update npm
 
 WORKDIR /app
 
