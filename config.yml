@@ -13,12 +13,12 @@ startup: before
 ports:
   5173/tcp: 5173
 options:
-  basic_auth_username: ""
-  basic_auth_password: ""
-  db_username: "homeassistant"
-  db_password: ""
-  db_database: "ha"
-  db_host: "127.0.0.1"
+  basic_auth_username: ''
+  basic_auth_password: ''
+  db_username: 'homeassistant'
+  db_password: ''
+  db_database: 'ha'
+  db_host: '127.0.0.1'
 schema:
   basic_auth_username: str
   basic_auth_password: str
@@ -26,4 +26,3 @@ schema:
   db_password: str
   db_database: str
   db_host: str
-  
