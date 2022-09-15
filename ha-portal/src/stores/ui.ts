@@ -37,11 +37,11 @@ function getErrorsStore() {
     add: (error: Error) => {
       console.error(error);
       store.update((v) => [error, ...v])
-    }),
+    },
     set: (errors: Error[]) => {
       errors.map(console.error)
       store.set(errors)
-    }),
+    },
     clear: () => store.set([])
   };
 }
