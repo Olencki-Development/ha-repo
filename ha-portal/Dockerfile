@@ -14,4 +14,6 @@ RUN npm -v
 RUN node -v
 RUN npm install
 
+RUN chmod a+x /app/scripts/run.sh
+
 CMD [ "/app/scripts/run.sh" ]
