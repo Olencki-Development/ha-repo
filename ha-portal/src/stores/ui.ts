@@ -28,3 +28,21 @@ export enum NotificationFilter {
 }
 
 export const notificationFilter = writable<NotificationFilter>(NotificationFilter.UNREAD);
+
+function getErrorsStore() {
+  const store = writable<Error[]>([]);
+  
+  return {
+	...store,
+    add: (error: Error) => {
+      console.error(error);
+      store.update((v) => [error, ...v])
+    }),
+    set: (errors: Error[]) => {
+      errors.map(console.error)
+      store.set(errors)
+    }),
+    clear: () => store.set([])
+  };
+}
+export const errors = getErrorsStore();
