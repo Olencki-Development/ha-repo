@@ -1,5 +1,5 @@
 name: 'HA Portal'
-description: "HA-Portal is a way to receive interactive notification in a persistent way.\nThe goals are to:\n* Receive notifications and display them in an intuitive UI\n* Interact with notifications allowing powerful connectivity\n* Provide a log history of the notifications that have been received and what actions are selected"
+description: "HA-Portal is a way to receive interactive notification in a persistent way."
 version: '1.0.0'
 slug: 'ha_portal'
 init: false
