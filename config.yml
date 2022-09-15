@@ -1,5 +1,5 @@
 name: 'HA Portal'
-description: "HA-Portal is a way to receive interactive notification in a persistent way."
+description: 'HA-Portal is a way to receive interactive notification in a persistent way.'
 version: '1.0.0'
 slug: 'ha_portal'
 init: false
