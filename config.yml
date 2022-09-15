@@ -10,8 +10,9 @@ arch:
   - armv7
   - i386
 startup: before
+ingress: true
 ports:
-  5173/tcp: 5173
+  8099/tcp: 8099
 options:
   basic_auth_username: ''
   basic_auth_password: ''
@@ -19,6 +20,7 @@ options:
   db_password: ''
   db_database: 'ha'
   db_host: '127.0.0.1'
+  whitelisted_domains: '["172.30.32.2"]'
 schema:
   basic_auth_username: str
   basic_auth_password: str
@@ -26,3 +28,4 @@ schema:
   db_password: str
   db_database: str
   db_host: str
+  whitelisted_domains: str

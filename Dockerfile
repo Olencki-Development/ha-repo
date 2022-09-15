@@ -2,12 +2,16 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 # Install requirements for add-on
-RUN apn add --update npm
+RUN apk add --update npm
 
 WORKDIR /app
 
 # Copy data for add-on
-COPY . /
-RUN chmod a+x /scripts/run.sh
+COPY . /app
 
-CMD [ "/scripts/run.sh" ]
+# Build produciton
+RUN npm -v
+RUN node -v
+RUN npm install
+
+CMD [ "/app/scripts/run.sh" ]
