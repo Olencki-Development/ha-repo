@@ -4,8 +4,9 @@ import { getErrorMessage } from '$lib/app/error';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const url = new URL(event.request.url);
+	const isSameOrigin = event.getClientAddress() === event.url.hostname;
 
-	if (url.pathname.startsWith('/notifications')) {
+	if (url.pathname.startsWith('/notifications') && !isSameOrigin) {
 		const auth = event.request.headers.get('Authorization');
 
 		if (auth !== `Basic ${Buffer.from(BASIC_AUTH).toString('base64')}`) {
