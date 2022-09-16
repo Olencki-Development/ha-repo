@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4
+
+- Improve error handling and log error responses from routes
+
 ## 1.0.3
 
 - Add error store to handle top level load errors
