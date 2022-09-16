@@ -1,6 +1,6 @@
 name: 'HA Portal'
 description: 'HA-Portal is a way to receive interactive notification in a persistent way.'
-version: '1.0.3'
+version: '1.0.4'
 slug: 'ha_portal'
 init: false
 arch:
