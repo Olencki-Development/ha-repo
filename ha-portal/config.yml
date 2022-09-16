@@ -1,6 +1,6 @@
 name: 'HA Portal'
 description: 'HA-Portal is a way to receive interactive notification in a persistent way.'
-version: '1.0.4'
+version: '1.0.5'
 slug: 'ha_portal'
 init: false
 arch:
@@ -19,8 +19,8 @@ options:
   db_username: 'homeassistant'
   db_password: ''
   db_database: 'ha'
-  db_host: '127.0.0.1'
-  whitelisted_domains: '["172.30.32.2"]'
+  db_host: 'homeassistant.local'
+  whitelisted_domains: '["172.30.32.2", "homeassistant.local", "0.0.0.0"]'
 schema:
   basic_auth_username: str
   basic_auth_password: str
