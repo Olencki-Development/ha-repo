@@ -1,7 +1,6 @@
 import { getPageTitle } from '$navigate';
 import { writable } from 'svelte/store';
-
-export const darkMode = writable(false);
+import { localStore } from '$lib/utils/localStore';
 
 function getPageTitleStore() {
 	const store = writable(getPageTitle());
@@ -21,6 +20,13 @@ export enum NotificationFilter {
 }
 
 export const notificationFilter = writable<NotificationFilter>(NotificationFilter.UNREAD);
+
+export enum ColorTheme {
+	SYSTEM = 'System',
+	DARK = 'Dark',
+	LIGHT = 'Light'
+}
+export const theme = localStore<{ color: ColorTheme }>('color_theme', { color: ColorTheme.SYSTEM });
 
 function getErrorsStore() {
 	const store = writable<Error[]>([]);
