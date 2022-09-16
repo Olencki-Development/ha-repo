@@ -19,11 +19,7 @@ function isSafeRequestOrigin(event: RequestEvent<Partial<Record<string, string>>
 export const handle: Handle = async ({ event, resolve }) => {
 	const url = new URL(event.request.url);
 
-	if (isSafeRequestOrigin(event)) {
-		return resolve(event);
-	}
-
-	if (url.pathname.startsWith('/notifications')) {
+	if (url.pathname.startsWith('/notifications') && !isSafeRequestOrigin(event)) {
 		const auth = event.request.headers.get('Authorization');
 
 		if (auth !== `Basic ${Buffer.from(BASIC_AUTH).toString('base64')}`) {
@@ -36,5 +32,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 		}
 	}
 
-	return resolve(event);
+	const response = await resolve(event);
+	if (!response.ok) {
+		const body = await response.text()
+		console.log(event.request.url, body)
+	}
+
+	return response
 };
