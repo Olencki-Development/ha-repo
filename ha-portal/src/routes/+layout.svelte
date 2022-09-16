@@ -1,28 +1,12 @@
 <script lang="ts">
-	import { ArrowLeftSolid, FilterSolid } from 'svelte-awesome-icons';
-	import {
-		pageTitle,
-		darkMode,
-		backAction,
-		notificationFilter,
-		NotificationFilter
-	} from '$stores/ui';
-	import { page } from '$app/stores';
+	import { FilterSolid } from 'svelte-awesome-icons';
+	import { pageTitle, darkMode, notificationFilter, NotificationFilter } from '$stores/ui';
 	import '../app.scss';
-	import { toHome } from '$navigate';
 	import { fade } from 'svelte/transition';
 
 	/**
 	 * Reactive vars
 	 */
-	$: if ($page.url.pathname === toHome()) {
-		$backAction = null;
-	} else {
-		$backAction = {
-			title: 'Back',
-			to: toHome()
-		};
-	}
 	$: filterDropdownOpen = false;
 
 	/**
@@ -49,24 +33,7 @@
 
 <div class:dark={$darkMode} on:click={() => handleCloseFilterDropdown()}>
 	<div class="w-full min-h-screen bg-slate-300 dark:bg-slate-900 dark:text-white">
-		<div
-			class="w-full fixed flex py-4 px-6"
-			class:justify-end={!$backAction}
-			class:justify-between={$backAction}
-		>
-			{#if $backAction}
-				<a
-					href={$backAction.to}
-					class="py-2 font-semibold text-sm text-sky-600/75 hover:text-sky-700 dark:text-sky-500/75 hover:dark:text-sky-600 opacity-100 flex items-center"
-				>
-					<span class="pr-2">
-						<ArrowLeftSolid size="14" />
-					</span>
-					<span>{$backAction.title}</span>
-				</a>
-			{:else}
-				<div />
-			{/if}
+		<div class="w-full fixed flex py-4 px-6 justify-end">
 			<div class="flex gap-3">
 				<div class="relative inline-block text-left">
 					<button

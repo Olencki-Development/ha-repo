@@ -14,13 +14,6 @@ function getPageTitleStore() {
 
 export const pageTitle = getPageTitleStore();
 
-type BackAction = {
-	title: string;
-	to: string;
-};
-
-export const backAction = writable<BackAction | null>(null);
-
 export enum NotificationFilter {
 	ALL = 'All',
 	READ = 'Read',
