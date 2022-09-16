@@ -1,0 +1,29 @@
+{
+	"name": "ha-repo",
+	"version": "1.0.0",
+	"description": "Home assistant repo",
+	"scripts": {
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write .",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prepare": "npx -y husky install"
+	},
+	"type": "module",
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.27.0",
+		"@typescript-eslint/parser": "^5.27.0",
+		"eslint": "^8.16.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"husky": "^8.0.1",
+		"lint-staged": "^13.0.3",
+		"prettier": "^2.6.2",
+		"prettier-plugin-svelte": "^2.7.0"
+	},
+	"lint-staged": {
+		"**/*.+(ts|js|json|svelte|scss|css)": [
+			"npm run format",
+			"npm run lint"
+		]
+	}
+}

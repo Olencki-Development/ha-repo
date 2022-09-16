@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { ACTION_TYPE_TABLE, NOTIFICATION_ACTION_TABLE, SCHEMA } from '../knexfile.ts';
 
