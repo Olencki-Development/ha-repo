@@ -30,19 +30,21 @@ export enum NotificationFilter {
 export const notificationFilter = writable<NotificationFilter>(NotificationFilter.UNREAD);
 
 function getErrorsStore() {
-  const store = writable<Error[]>([]);
-  
-  return {
-	...store,
-    add: (error: Error) => {
-      console.error(error);
-      store.update((v) => [error, ...v])
-    },
-    set: (errors: Error[]) => {
-      errors.map(console.error)
-      store.set(errors)
-    },
-    clear: () => store.set([])
-  };
+	const store = writable<Error[]>([]);
+
+	return {
+		subscribe: store.subscribe,
+		clear: () => store.set([]),
+		safeExec: async <F extends (...args: any) => any>(func: F, ...args: Parameters<F>): Promise<Awaited<ReturnType<F>> | undefined> => {
+			try {
+				return await func(...args as any[])
+			} catch (e) {
+				if (e instanceof Error) {
+					store.update((v) => [e, ...v]);
+				}
+				return undefined
+			}
+		}
+	};
 }
 export const errors = getErrorsStore();

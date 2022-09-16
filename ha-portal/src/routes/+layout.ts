@@ -5,16 +5,19 @@ import { z } from 'zod';
 import { errors } from '$stores/ui';
 
 export const load: LayoutLoad = async function ({ data, fetch }) {
-  try {
-    const response = await fetch('/notifications');
-    const json = await response.json();
+	const payload = await errors.safeExec(async () => {
+		const response = await fetch('/notifications');
+		const json = await response.json();
+	
+		const parsedResponse = z.array(NotificationWithActions).parse(json);
+		return parsedResponse;
+	})
 
-    notifications.set(z.array(NotificationWithActions).parse(json));
-  } catch (e) {
-    errors.add(e);
-  }
-  
-  return {
-    notifications
-  };
+	if (payload !== undefined) {
+		notifications.set(payload);
+	}
+
+	return {
+		notifications
+	};
 };
