@@ -8,10 +8,10 @@ export const load: LayoutLoad = async function ({ data, fetch }) {
 	const payload = await errors.safeExec(async () => {
 		const response = await fetch('/notifications');
 		const json = await response.json();
-	
+
 		const parsedResponse = z.array(NotificationWithActions).parse(json);
 		return parsedResponse;
-	})
+	});
 
 	if (payload !== undefined) {
 		notifications.set(payload);

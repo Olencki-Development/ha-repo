@@ -34,9 +34,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const response = await resolve(event);
 	if (!response.ok) {
-		const body = await response.text()
-		console.log(event.request.url, body)
+		const body = await response.text();
+		console.log(event.request.url, body);
 	}
 
-	return response
+	return response;
 };

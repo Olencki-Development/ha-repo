@@ -35,14 +35,17 @@ function getErrorsStore() {
 	return {
 		subscribe: store.subscribe,
 		clear: () => store.set([]),
-		safeExec: async <F extends (...args: any) => any>(func: F, ...args: Parameters<F>): Promise<Awaited<ReturnType<F>> | undefined> => {
+		safeExec: async <F extends (...args: any) => any>(
+			func: F,
+			...args: Parameters<F>
+		): Promise<Awaited<ReturnType<F>> | undefined> => {
 			try {
-				return await func(...args as any[])
+				return await func(...(args as any[]));
 			} catch (e) {
 				if (e instanceof Error) {
 					store.update((v) => [e, ...v]);
 				}
-				return undefined
+				return undefined;
 			}
 		}
 	};
