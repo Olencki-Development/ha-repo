@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.7
+
+- Remove basic auth
+- Add notification filter to local storage
+
+## 1.0.6
+
+- Remove exposed port
+
 ## 1.0.5
 
 - Package v1.0.1

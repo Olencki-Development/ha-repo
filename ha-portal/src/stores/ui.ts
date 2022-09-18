@@ -19,7 +19,10 @@ export enum NotificationFilter {
 	UNREAD = 'Unread'
 }
 
-export const notificationFilter = writable<NotificationFilter>(NotificationFilter.UNREAD);
+export const notificationFilter = localStore<NotificationFilter>(
+	'notification_filter',
+	NotificationFilter.UNREAD
+);
 
 export enum ColorTheme {
 	SYSTEM = 'System',

@@ -1,6 +1,6 @@
 {
 	"name": "ha-repo",
-	"version": "1.0.0",
+	"version": "1.0.7",
 	"description": "Home assistant repo",
 	"scripts": {
 		"lint": "prettier --check . && eslint .",
