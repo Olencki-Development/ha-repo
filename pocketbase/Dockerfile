@@ -17,7 +17,7 @@ RUN rm /app/pocketbase/pocketbase.zip
 
 EXPOSE 8099
 
-COPY scripts/ /app
+COPY scripts/run.sh /app/scripts/
 RUN chmod a+x /app/scripts/run.sh
 
 CMD [ "/app/scripts/run.sh" ]

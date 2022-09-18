@@ -1,6 +1,6 @@
 name: 'Pocketbase'
 description: 'Pocketbase service running on home assistant.'
-version: '1.0.1'
+version: '1.0.2'
 slug: 'pocketbase'
 arch:
   - aarch64
