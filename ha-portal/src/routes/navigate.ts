@@ -1,7 +1,3 @@
-export function toHome() {
-	return '/';
-}
-
 export function getPageTitle(subPage?: string) {
 	const baseTitle = 'HA Portal';
 

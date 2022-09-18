@@ -1,7 +1,6 @@
 import { getPageTitle } from '$navigate';
 import { writable } from 'svelte/store';
-
-export const darkMode = writable(false);
+import { localStore } from '$lib/utils/localStore';
 
 function getPageTitleStore() {
 	const store = writable(getPageTitle());
@@ -14,13 +13,6 @@ function getPageTitleStore() {
 
 export const pageTitle = getPageTitleStore();
 
-type BackAction = {
-	title: string;
-	to: string;
-};
-
-export const backAction = writable<BackAction | null>(null);
-
 export enum NotificationFilter {
 	ALL = 'All',
 	READ = 'Read',
@@ -29,20 +21,32 @@ export enum NotificationFilter {
 
 export const notificationFilter = writable<NotificationFilter>(NotificationFilter.UNREAD);
 
+export enum ColorTheme {
+	SYSTEM = 'System',
+	DARK = 'Dark',
+	LIGHT = 'Light'
+}
+export const theme = localStore<{ color: ColorTheme }>('color_theme', { color: ColorTheme.SYSTEM });
+
 function getErrorsStore() {
-  const store = writable<Error[]>([]);
-  
-  return {
-	...store,
-    add: (error: Error) => {
-      console.error(error);
-      store.update((v) => [error, ...v])
-    },
-    set: (errors: Error[]) => {
-      errors.map(console.error)
-      store.set(errors)
-    },
-    clear: () => store.set([])
-  };
+	const store = writable<Error[]>([]);
+
+	return {
+		subscribe: store.subscribe,
+		clear: () => store.set([]),
+		safeExec: async <F extends (...args: any) => any>(
+			func: F,
+			...args: Parameters<F>
+		): Promise<Awaited<ReturnType<F>> | undefined> => {
+			try {
+				return await func(...(args as any[]));
+			} catch (e) {
+				if (e instanceof Error) {
+					store.update((v) => [e, ...v]);
+				}
+				return undefined;
+			}
+		}
+	};
 }
 export const errors = getErrorsStore();
