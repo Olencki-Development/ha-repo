@@ -10,18 +10,12 @@ arch:
   - i386
 ingress: true
 options:
-  basic_auth_username: ''
-  basic_auth_password: ''
   db_username: 'homeassistant'
   db_password: ''
   db_database: 'ha'
   db_host: 'homeassistant.local'
-  whitelisted_domains: '["172.30.32.2", "homeassistant.local", "0.0.0.0"]'
 schema:
-  basic_auth_username: str
-  basic_auth_password: str
   db_username: str
   db_password: str
   db_database: str
   db_host: str
-  whitelisted_domains: str
