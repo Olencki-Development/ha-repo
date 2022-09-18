@@ -48,7 +48,7 @@ To set up the integration use the example config:
 notify:
   - name: ha_portal
     platform: rest
-    resource: http://IP_ADDRESS/notifications/ha
+    resource: http://homeassistant.local/notifications
     method: POST_JSON
     authentication: basic
     username: USERNAME # same as your config

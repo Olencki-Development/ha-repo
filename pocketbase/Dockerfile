@@ -17,4 +17,7 @@ RUN rm /app/pocketbase/pocketbase.zip
 
 EXPOSE 8099
 
-CMD [ "/app/pocketbase/pocketbase", "serve", "--http", "0.0.0.0:8099" ]
+COPY scripts/ /app
+RUN chmod a+x /app/scripts/run.sh
+
+CMD [ "/app/scripts/run.sh" ]
