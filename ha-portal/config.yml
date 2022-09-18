@@ -1,7 +1,9 @@
 name: 'HA Portal'
 description: 'HA-Portal is a way to receive interactive notification in a persistent way.'
-version: '1.0.7'
+version: '1.0.8'
 slug: 'ha_portal'
+init: false
+startup: application
 arch:
   - aarch64
   - amd64

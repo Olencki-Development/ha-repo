@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.8
+
+- Fix home assistant config
+
 ## 1.0.7
 
 - Remove basic auth
