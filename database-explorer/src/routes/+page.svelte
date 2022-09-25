@@ -1,7 +1,10 @@
 <script lang="ts">
+	import type { PageData } from './$types';
 	import Modal from '$lib/ui/Modal.svelte';
 	import { DatabaseConfig, DatabaseType } from '$lib/models/DatabaseConfig';
 	import { getFieldError, hasFieldError, validateForm, type FormErrors } from '$lib/form';
+
+	export let data: PageData;
 
 	const form: Partial<DatabaseConfig> = {
 		type: DatabaseType.PG,
@@ -31,8 +34,8 @@
 		formErrors = null;
 		const result = validateForm(DatabaseConfig, form);
 		if (result.status === 'success') {
-			console.log(result.values);
-			// handleCloseModal();
+			data.databaseConfigTable.insert(result.values);
+			handleCloseModal();
 		} else {
 			formErrors = result.errors;
 		}
