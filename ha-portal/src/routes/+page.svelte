@@ -30,7 +30,7 @@
 </script>
 
 <div class="w-full flex justify-center">
-	<div class="flex flex-col w-1/3 gap-6">
+	<div class="flex flex-col md:w-2/3 lg:w-1/3 w-full gap-6">
 		{#each filteredNotifications as notification (notification.notification_id)}
 			<div
 				class={`tile ${
