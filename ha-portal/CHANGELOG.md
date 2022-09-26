@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.10
+
+- Expose port 5123 and map to internal
+
+
 ## 1.0.9
 
 - Add embed mode
