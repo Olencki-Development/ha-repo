@@ -1,6 +1,6 @@
 name: 'HA Portal'
 description: 'HA-Portal is a way to receive interactive notification in a persistent way.'
-version: '1.0.10'
+version: '1.0.11'
 slug: 'ha_portal'
 init: false
 startup: application
@@ -22,4 +22,4 @@ schema:
   db_database: str
   db_host: str
 ports:
-  5123/tcp: 8099
+  8099/tcp: 5123
