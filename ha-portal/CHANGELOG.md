@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.11
+
+- Remap ports
+
 ## 1.0.10
 
 - Expose port 5123 and map to internal
